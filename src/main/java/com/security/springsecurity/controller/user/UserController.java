@@ -3,7 +3,6 @@ package com.security.springsecurity.controller.user;
 import com.security.springsecurity.dao.UserRepo;
 import com.security.springsecurity.domain.User;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,8 +17,8 @@ public class UserController {
     private final UserRepo userRepo;
 
     @GetMapping("/getAllUsers")
-    public ResponseEntity<List<User>> getUser() {
-        return ResponseEntity.ok(userRepo.findAll());
+    public List<User> getUser() {
+        return userRepo.findAll();
 
     }
 }

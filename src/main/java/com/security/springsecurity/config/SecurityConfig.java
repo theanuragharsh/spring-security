@@ -17,7 +17,8 @@ public class SecurityConfig {
 
     private final JwtAuthenticationFilter authenticationFilter;
     private final AuthenticationProvider authenticationProvider;
-    @Bean
+
+/*    @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf().disable()
                 .authorizeHttpRequests()
@@ -31,6 +32,20 @@ public class SecurityConfig {
                 .addFilterBefore(authenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
+    }*/
+
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        return http.csrf(csrf -> csrf.disable())
+                .authorizeHttpRequests(authorizationManagerRequestMatcherRegistry -> {
+                    authorizationManagerRequestMatcherRegistry.requestMatchers("/api/v1/auth/**").permitAll();
+                    authorizationManagerRequestMatcherRegistry.anyRequest().authenticated();
+                })
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .authenticationProvider(authenticationProvider)
+                .addFilterBefore(authenticationFilter, UsernamePasswordAuthenticationFilter.class)
+                .build();
+
     }
 
 }

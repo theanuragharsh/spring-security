@@ -1,6 +1,5 @@
 package com.security.springsecurity.config;
 
-import com.security.springsecurity.domain.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
